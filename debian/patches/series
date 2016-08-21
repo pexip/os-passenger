@@ -1,0 +1,3 @@
+fix_install_path.patch
+bin_load_path.patch
+nodejs_bin_name.patch

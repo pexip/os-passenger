@@ -1,0 +1,56 @@
+#!/usr/bin/make -f
+#export DH_VERBOSE=1
+
+include /usr/share/dpkg/buildflags.mk
+export EXTRA_CFLAGS=$(CFLAGS) $(CPPFLAGS)
+export EXTRA_CXXFLAGS=$(CXXFLAGS) $(CPPFLAGS)
+export EXTRA_LDFLAGS=$(LDFLAGS)
+
+# needed to generate docs
+export LC_ALL=C.UTF-8
+
+export USE_VENDORED_LIBUV=no
+
+SUPPORTED_RUBY_VERSIONS=$(shell dh_ruby --print-supported)
+
+%:
+	dh $@ --buildsystem=ruby --with ruby,apache2,autoreconf
+
+override_dh_auto_build:
+	set -e && for ruby in $(SUPPORTED_RUBY_VERSIONS); do \
+		/usr/bin/$$ruby /usr/bin/rake fakeroot; \
+		mv pkg/fakeroot pkg/fakeroot$$ruby; \
+	done
+
+override_dh_auto_install:
+	mkdir debian/tmp/
+	set -e && for ruby in $(SUPPORTED_RUBY_VERSIONS); do \
+		cp -a pkg/fakeroot$$ruby/* debian/tmp/; \
+	done
+	rm -f debian/tmp/usr/share/doc/phusion-passenger/images/._phusion_banner.png
+	rm -f debian/tmp/usr/share/doc/passenger/CloudLicensingConfiguration.html
+	rm -f debian/tmp/usr/share/doc/passenger/Packaging.html
+	rm -f debian/tmp/usr/share/doc/passenger/ServerOptimizationGuide.html
+
+override_dh_auto_clean:
+	dh_auto_clean -O--buildsystem=ruby
+	set -e && for ruby in $(SUPPORTED_RUBY_VERSIONS); do \
+		rm -rf pkg/fakeroot$$ruby; \
+	done
+
+override_dh_install:
+	dh_install --list-missing -O--buildsystem=ruby
+ifneq (,$(filter passenger, $(shell dh_listpackages)))
+	cd debian/passenger && rm -f \
+		usr/lib/ruby/vendor_ruby/phusion_passenger/vendor/union_station_hooks_core/LICENSE.md \
+		usr/lib/ruby/vendor_ruby/phusion_passenger/vendor/union_station_hooks_rails/LICENSE.md \
+		usr/share/passenger/node/vendor-copy/winston/LICENSE \
+		usr/share/passenger/node/vendor-copy/winston/node_modules/async/LICENSE \
+		usr/share/passenger/node/vendor-copy/winston/node_modules/eyes/LICENSE \
+		usr/share/passenger/node/vendor-copy/winston/node_modules/isstream/LICENSE.md \
+		usr/share/passenger/node/vendor-copy/winston/node_modules/pkginfo/LICENSE \
+		usr/share/passenger/node/vendor-copy/winston/node_modules/stack-trace/License
+endif
+
+override_dh_installchangelogs:
+	dh_installchangelogs CHANGELOG

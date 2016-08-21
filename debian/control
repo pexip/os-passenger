@@ -1,0 +1,89 @@
+Source: passenger
+Section: ruby
+Priority: optional
+Maintainer: Debian Ruby Extras Maintainers <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
+Uploaders: Micah Anderson <micah@debian.org>,
+           Felix Geyer <fgeyer@debian.org>
+Build-Depends: apache2 (>= 2.4),
+               apache2-dev (>= 2.4),
+               asciidoc (>= 8.2),
+               debhelper (>= 9~),
+               dh-autoreconf,
+               doxygen,
+               gem2deb,
+               graphviz,
+               libapr1-dev,
+               libcurl4-openssl-dev,
+               libuv1-dev,
+               rake,
+               ruby-mizuho,
+               source-highlight,
+               zlib1g-dev
+Standards-Version: 3.9.7
+Homepage: https://www.phusionpassenger.com/
+Vcs-Git: https://anonscm.debian.org/git/pkg-ruby-extras/passenger.git
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-ruby-extras/passenger.git
+XS-Ruby-Versions: all
+
+Package: passenger
+Architecture: any
+XB-Ruby-Versions: ${ruby:Versions}
+Depends: ruby | ruby-interpreter,
+         ruby-rack,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Suggests: nodejs,
+          passenger-doc,
+          python,
+          rails
+Breaks: libapache2-mod-passenger (<< 3.0.11debian),
+        ruby-passenger (<< 4.0.53-2~)
+Replaces: libapache2-mod-passenger (<< 3.0.11debian),
+          ruby-passenger (<< 4.0.53-2~)
+Description: Rails and Rack support
+ Phusion Passenger — a.k.a. mod_rails or mod_rack — makes
+ deployment of Ruby web applications, such as those built on the
+ revolutionary Ruby on Rails web framework, a breeze.
+
+Package: libapache2-mod-passenger
+Architecture: any
+Section: httpd
+Depends: passenger (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Rails and Rack support for Apache2
+ Phusion Passenger — a.k.a. mod_rails or mod_rack — makes
+ deployment of Ruby web applications, such as those built on the
+ revolutionary Ruby on Rails web framework, a breeze.
+ .
+ This package contains the Apache 2 module required by Phusion Passenger.
+
+Package: passenger-doc
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}
+Suggests: www-browser
+Breaks: ruby-passenger-doc (<< 4.0.53-2~)
+Replaces: ruby-passenger-doc (<< 4.0.53-2~)
+Description: Rails and Rack support for Apache2 - Documentation
+ Phusion Passenger — a.k.a. mod_rails or mod_rack — makes
+ deployment of Ruby web applications, such as those built on the
+ revolutionary Ruby on Rails web framework, a breeze.
+ .
+ This package provides the documentation for Phusion Passenger.
+
+Package: ruby-passenger
+Section: oldlibs
+Architecture: all
+Depends: passenger (>= ${source:Version}),
+         ${misc:Depends}
+Description: transitional dummy package for passenger
+ This is a transitional dummy package. It can safely be removed.
+
+Package: ruby-passenger-doc
+Section: oldlibs
+Architecture: all
+Depends: passenger-doc (>= ${source:Version}),
+         ${misc:Depends}
+Description: transitional dummy package for passenger-doc
+ This is a transitional dummy package. It can be safely removed.

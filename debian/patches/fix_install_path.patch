@@ -1,0 +1,19 @@
+Description: Install in vendor_ruby directory and install common files in non-versioned path
+Author: Laurent Bigonville <bigon@debian.org>
+Last-Update: 2015-05-02
+
+--- a/build/packaging.rb
++++ b/build/packaging.rb
+@@ -559,10 +559,10 @@
+   # We don't use CONFIG['archdir'] and the like because we want
+   # the files to be installed to /usr, and the Ruby interpreter
+   # on the packaging machine might be in /usr/local.
+-  psg_rubylibdir = ENV['RUBYLIBDIR'] || "#{fs_libdir}/ruby/vendor_ruby"
++  psg_rubylibdir = ENV['RUBYLIBDIR'] || CONFIG['vendordir'].sub(/^\/usr/,fs_prefix)
+   psg_nodelibdir = "#{fs_datadir}/#{GLOBAL_NAMESPACE_DIRNAME}/node"
+   psg_libdir     = "#{fs_libdir}/#{GLOBAL_NAMESPACE_DIRNAME}"
+-  psg_native_support_dir = ENV["RUBYARCHDIR"] || "#{fs_libdir}/ruby/#{CONFIG['ruby_version']}/#{CONFIG['arch']}"
++  psg_native_support_dir = ENV["RUBYARCHDIR"] || CONFIG['vendorarchdir'].sub(/^\/usr/,fs_prefix)
+   psg_support_binaries_dir = "#{fs_libdir}/#{GLOBAL_NAMESPACE_DIRNAME}/support-binaries"
+   psg_helper_scripts_dir = "#{fs_datadir}/#{GLOBAL_NAMESPACE_DIRNAME}/helper-scripts"
+   psg_resources_dir      = "#{fs_datadir}/#{GLOBAL_NAMESPACE_DIRNAME}"

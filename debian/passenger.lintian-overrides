@@ -1,0 +1,1 @@
+passenger: embedded-library usr/lib/passenger/support-binaries/PassengerAgent: libjsoncpp

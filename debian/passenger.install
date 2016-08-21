@@ -1,0 +1,11 @@
+usr/bin/passenger-config
+usr/lib/*/ruby/vendor_ruby/
+usr/lib/passenger/support-binaries/
+usr/lib/ruby/vendor_ruby/
+usr/sbin/
+usr/share/passenger/helper-scripts/
+usr/share/passenger/mime.types
+usr/share/passenger/node/
+usr/share/passenger/ruby_extension_source/
+usr/share/passenger/templates/
+usr/share/passenger/union_station_gateway.crt

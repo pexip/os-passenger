@@ -1,0 +1,388 @@
+passenger (5.0.30-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Refresh patches.
+  * Update watch file.
+
+ -- Felix Geyer <fgeyer@debian.org>  Sun, 21 Aug 2016 19:24:14 +0200
+
+passenger (5.0.27-2) unstable; urgency=medium
+
+  * Fix FTBFS on arch-all only builds.
+
+ -- Felix Geyer <fgeyer@debian.org>  Thu, 07 Apr 2016 09:18:06 +0200
+
+passenger (5.0.27-1) unstable; urgency=medium
+
+  [ Felix Geyer ]
+  * New upstream release.
+  * Drop fix_ftbfs_boost.patch, fixed upstream.
+  * Build against the libuv package instead of the bundled copy.
+    (Closes: #815496)
+  * Update copyright file.
+
+  [ Cédric Boutillier ]
+  * Bump debhelper compatibility level to 9
+  * Use https:// in Vcs-* fields
+  * Bump Standards-Version to 3.9.7 (no changes needed)
+  * Run wrap-and-sort on packaging files
+
+ -- Felix Geyer <fgeyer@debian.org>  Wed, 06 Apr 2016 22:15:56 +0200
+
+passenger (5.0.22-1) unstable; urgency=medium
+
+  * New upstream release.
+    - Fixes CVE-2015-7519: Header overwriting issue (Closes: #807354)
+    - Fixes incompatibility with Apache 2.4.17 (Closes: #804195)
+  * Refresh patches.
+  * Use bundled libjsoncpp as it's a modified version.
+
+ -- Felix Geyer <fgeyer@debian.org>  Mon, 07 Dec 2015 22:35:39 +0100
+
+passenger (5.0.7-3) unstable; urgency=medium
+
+  * Fix FTBFS on kfreebsd in bundled boost library.
+    - Add d/fix_ftbfs_boost.patch, cherry-picked from upstream.
+
+ -- Felix Geyer <fgeyer@debian.org>  Wed, 05 Aug 2015 17:58:24 +0200
+
+passenger (5.0.7-2) unstable; urgency=medium
+
+  * Install /usr/bin/passenger-config. (Closes: #793013)
+  * Run dh_autoreconf for ext/libev.
+    - Fixes FTBFS on arm64 and ppc64el.
+
+ -- Felix Geyer <fgeyer@debian.org>  Tue, 04 Aug 2015 00:14:14 +0200
+
+passenger (5.0.7-1) unstable; urgency=medium
+
+  * Rename package from ruby-passenger to passenger.
+    - Requested by upstream.
+    - passenger supports more than just ruby.
+  * New upstream release.
+  * Refresh patches.
+  * Use the bundled libev as it now has local modifications.
+  * Bump Standards-Version to 3.9.6, no changes needed.
+  * Exclude more docs that contains embedded minified js and css.
+  * Update copyright file.
+
+ -- Felix Geyer <fgeyer@debian.org>  Thu, 07 May 2015 21:43:00 +0200
+
+ruby-passenger (4.0.53-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Remove inactive uploaders from the list. (Closes: #762563)
+  * Add zlib1g-dev to build-depends. (Closes: #765138)
+
+ -- Felix Geyer <fgeyer@debian.org>  Mon, 13 Oct 2014 21:44:07 +0200
+
+ruby-passenger (4.0.52-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Improve autopkgtests:
+    - Be more verbose in case of errors.
+    - Test wsgi application with python 2 and 3.
+    - Add dependencies on python and python3.
+  * Exclude Packaging.html from docs.
+
+ -- Felix Geyer <fgeyer@debian.org>  Sun, 28 Sep 2014 23:52:54 +0200
+
+ruby-passenger (4.0.50-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Change default node.js binary name to "nodejs" instead of "node".
+  * Add nodejs to Suggests.
+  * Add autopkgtests for running simple rack, wsgi and nodejs applications.
+
+ -- Felix Geyer <fgeyer@debian.org>  Sun, 31 Aug 2014 16:31:37 +0200
+
+ruby-passenger (4.0.49-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Drop CVE-2014-1832.patch, fixed upstream.
+  * Make ruby-passenger use the system jsoncpp library.
+    - Rename no_jsoncpp.patch to system_jsoncpp.patch.
+    - Add libjsoncpp-dev to build-depends.
+  * Install the ruby native extension sources to allow building it for custom
+    ruby interpreters. (Closes: #758885)
+
+ -- Felix Geyer <fgeyer@debian.org>  Sun, 24 Aug 2014 22:45:24 +0200
+
+ruby-passenger (4.0.37-3) unstable; urgency=medium
+
+  * Query the supported ruby versions from dh_ruby instead of hardcoding them.
+    (Closes: #744808)
+
+ -- Felix Geyer <fgeyer@debian.org>  Wed, 23 Apr 2014 23:44:19 +0200
+
+ruby-passenger (4.0.37-2) unstable; urgency=medium
+
+  * Cherry-pick upstream commit to fix CVE-2014-1832.
+    The fix for CVE-2014-1831 was incomplete.
+    - Add CVE-2014-1832.patch
+
+ -- Felix Geyer <fgeyer@debian.org>  Sat, 08 Mar 2014 19:27:27 +0100
+
+ruby-passenger (4.0.37-1) unstable; urgency=medium
+
+  * New upstream release.
+    - Fixes CVE-2014-1831: insecure use of /tmp. (Closes: #736958)
+
+  [ Cédric Boutillier ]
+  * Move upstream GPG key into debian/upstream.
+
+  [ Felix Geyer ]
+  * Make sure the build flags are used for all source files.
+    - Export CFLAGS and CPPFLAGS as EXTRA_CFLAGS.
+  * Don't mention nginx in the package description as it isn't actually
+    supported in this package.
+
+ -- Felix Geyer <fgeyer@debian.org>  Sat, 08 Mar 2014 18:15:49 +0100
+
+ruby-passenger (4.0.35-1) unstable; urgency=low
+
+  * Team upload
+
+  [ Felix Geyer ]
+  * Import the upstream release signing key for uscan to verify the tarball.
+
+  [ Cédric Boutillier ]
+  * Imported Upstream version 4.0.35
+  * Drop rubygems from Depends since it is shipped by Ruby1.9+
+  * Bump Standards-Version to 3.9.5 (no changes needed)
+  * debian/patches:
+    - drop fix_ftbfs_fortify_source.patch, applied upstream
+    - refresh fix_install_path.patch and no_jsoncpp.patch
+    - add bin_load_path.patch to prevent load_path manipulation in bin/*
+  * Fix installation path for (multiarch) Ruby2.0
+  * Replace debian/upstream-signing-key.pgp by its armored ASCII version
+  * Install NEWS as the upstream changelog
+
+ -- Cédric Boutillier <boutil@debian.org>  Thu, 16 Jan 2014 12:53:56 +0100
+
+ruby-passenger (4.0.25-2) unstable; urgency=low
+
+  * Fix building the documentation. (Closes: #680357)
+    - Build-depend on ruby-mizuho.
+
+ -- Felix Geyer <fgeyer@debian.org>  Sat, 30 Nov 2013 19:12:13 +0100
+
+ruby-passenger (4.0.25-1) unstable; urgency=low
+
+  * New upstream release.
+  * Refresh fix_install_path.patch.
+  * Build for Ruby 2.0 instead of 1.8. (Closes: #725591)
+  * Add fix_ftbfs_fortify_source.patch.
+  * Install passenger template files.
+
+ -- Felix Geyer <fgeyer@debian.org>  Sat, 23 Nov 2013 23:50:02 +0100
+
+ruby-passenger (4.0.10-1) unstable; urgency=low
+
+  * New upstream release. (Closes: #711906)
+  * Stop repacking the upstream tarball as it doesn't contain any minified
+    javascript files anymore.
+    - Add valgrind.h license to the copyright file.
+    - Drop libjs-scriptaculous from build-depends.
+  * Refresh fix_install_path.patch.
+  * Drop fix_ftbfs_glibc217.patch, CVE-2013-2119.patch and CVE-2013-4136.patch,
+    applied upstream.
+  * Point PassengerRoot to the locations.ini in passenger.conf.
+  * Pass CXXFLAGS, CPPFLAGS and LDFLAGS to the build system.
+  * Add ruby1.9.1 as an alternative dependency to rubygems. (Closes: #683511)
+  * Add myself as Uploader.
+  * Fix the watch file.
+  * Use dh-autoreconf.
+  * Bump Standards-Version to 3.9.4, no changes needed.
+  * Don't build the embedded jsoncpp source as it's not actually used.
+    - Add no_jsoncpp.patch.
+
+ -- Felix Geyer <fgeyer@debian.org>  Tue, 06 Aug 2013 23:08:29 +0200
+
+ruby-passenger (3.0.13debian-1.2) unstable; urgency=high
+
+  * Non-maintainer upload.
+
+  [ Laurent Bigonville ]
+  * debian/control: Use canonical VCS URL
+  * debian/control: Move libapache2-mod-passenger to httpd section
+
+  [ Felix Geyer ]
+  * Cherry-pick another commit to properly fix CVE-2013-2119.
+  * Fix CVE-2013-4136: insecure tmp files usage. (Closes: #717176)
+    - Add CVE-2013-4136.patch, backported from upstream.
+
+ -- Felix Geyer <fgeyer@debian.org>  Sun, 21 Jul 2013 10:41:42 +0200
+
+ruby-passenger (3.0.13debian-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Transition towards Apache 2.4. (Closes: #707063)
+    - Build-depend on apache2-dev and apache2.
+    - Use apache2 dh helper.
+    - Drop libapache2-mod-passenger maintainer scripts, now handled by
+      dh_apache2.
+  * Fix buiding against glibc 2.17.
+    - Add fix_ftbfs_glibc217.patch, cherry-picked from upstream.
+  * Fix CVE-2013-2119: insecure temporary file usage. (Closes: #710351)
+    - Add CVE-2013-2119.patch, cherry-picked from upstream.
+
+ -- Felix Geyer <fgeyer@debian.org>  Thu, 30 May 2013 09:27:46 +0200
+
+ruby-passenger (3.0.13debian-1) unstable; urgency=low
+
+  * Team upload.
+  * New upstream release
+  * debian/control: Add apache2-mpm-event to the dependency alternative, it is
+    now supported by passenger (Closes: #600679)
+  * Drop debian/patches/fix_ftbfs_gcc47.patch: Applied upstream
+  * Add debian/gbp.conf file
+  * debian/rules: Remove leftover MacOS resource fork file
+
+ -- Laurent Bigonville <bigon@debian.org>  Thu, 28 Jun 2012 17:00:42 +0200
+
+ruby-passenger (3.0.12debian-1) unstable; urgency=low
+
+  * Team upload.
+  * New upstream release
+  * Add debian/patches/fix_ftbfs_gcc47.patch: Fix FTBFS with GCC 4.7
+    (Closes: #672096)
+
+ -- Laurent Bigonville <bigon@debian.org>  Wed, 23 May 2012 18:40:57 +0200
+
+ruby-passenger (3.0.11debian-1) unstable; urgency=low
+
+  * Team upload.
+  [ Dmitry Borodaenko ]
+  * New upstream release (Closes: #588256)
+
+  [ Laurent Bigonville ]
+  * Rename packages to follow new ruby policy
+  * Split all ruby files into the ruby-passenger package (Closes: #664152)
+  * debian/control: Fix typo, the right package is www-browser (Closes:
+    #628479)
+  * Also build for ruby 1.9.1 (LP: #695159)
+
+ -- Laurent Bigonville <bigon@debian.org>  Fri, 23 Mar 2012 13:14:01 +0100
+
+passenger (2.2.11debian-2) unstable; urgency=low
+
+  [Laurent Arnoud]
+  * Team upload.
+  * Bump Standards version to 3.9.1 (no changes).
+
+  [Evgeni Golov]
+  * Correctly install docs in passenger-doc (Closes: #599024)
+
+ -- Evgeni Golov <evgeni@debian.org>  Wed, 06 Oct 2010 11:49:07 +0200
+
+passenger (2.2.11debian-1) unstable; urgency=low
+
+  [ Paul van Tilburg ]
+  * debian/watch: fixed typo in the dversionmangle regexp.
+
+  [ Micah Anderson ]
+  * New upstream release
+  * Update Standards version, no changes
+  * Remove unused patchsystem in debian/rules
+
+ -- Micah Anderson <micah@debian.org>  Wed, 17 Mar 2010 00:27:59 -0400
+
+passenger (2.2.9debian-1) unstable; urgency=low
+
+  * New upstream release (Closes: #555552)
+
+ -- Micah Anderson <micah@debian.org>  Sun, 31 Jan 2010 14:19:55 -0500
+
+passenger (2.2.7debian-1) unstable; urgency=low
+
+  * Added possibile dependency on apache2-mpm-itk (Closes: #556230)
+  * New upstream release
+
+ -- Micah Anderson <micah@debian.org>  Fri, 20 Nov 2009 13:56:00 -0500
+
+passenger (2.2.5debian1-1) unstable; urgency=low
+
+  * Really sort out the Build-deps this time (Closes: #555155)
+  * Remove embedded prototype.js, Build-dep on libjs-prototype
+    and symlink to that version, requires repack of orig
+    tarball (Closes: #555273)
+
+ -- Micah Anderson <micah@debian.org>  Mon, 09 Nov 2009 12:07:15 -0500
+
+passenger (2.2.5debian-5) unstable; urgency=low
+
+  * Build-dep on apache2 to fix FTBS (Closes: #555155)
+
+ -- Micah Anderson <micah@debian.org>  Sun, 08 Nov 2009 21:22:47 -0500
+
+passenger (2.2.5debian-3) unstable; urgency=low
+
+  * Really fix apache2-mpm-preform dependencies (Closes: #545872)
+
+ -- Micah Anderson <micah@debian.org>  Fri, 06 Nov 2009 17:41:46 -0500
+
+passenger (2.2.5debian-2) unstable; urgency=low
+
+  * Update control to allow for possible installation of
+    apache2-mpm-prefork (Closes: #545872)
+
+ -- Micah Anderson <micah@debian.org>  Wed, 23 Sep 2009 14:55:53 -0400
+
+passenger (2.2.5debian-1) unstable; urgency=low
+
+  * New upstream release
+  * Bump standards version one minor number (no changes)
+
+ -- Micah Anderson <micah@debian.org>  Thu, 17 Sep 2009 22:55:23 -0400
+
+passenger (2.2.4debian-1) unstable; urgency=low
+
+  * Updated debian/copyright information with information for:
+    . test/support/tut.h and tut_reporter.h
+    . test/stub/rails_apps/mycookbook/public/javascripts/prototype.js
+    . test/stub/rails_apps/mycookbook/public/javascripts/effects.js
+    . test/stub/rails_apps/mycookbook/public/javascripts/dragdrop.js
+    . test/stub/rails_apps/mycookbook/public/javascripts/controls.js
+    . ext/nginx/StaticContentHandler.c
+    . ext/nginx/Configuration.[c,h], ContentHandler.[c,h],
+    . ext/nginx/ngx_http_passenger_module.[c,h] and StaticContentHandler.h
+    . ext/apache2/Hooks.cpp
+    . ext/common/Base65.[cpp,h]
+  * Update Standards-Version to 3.8.2 (no changes)
+  * Also remove passenger-install-nginx-module, same as the apache piece
+  * Add myself and damog to Uploaders
+  * Set Maintainer field to Debian Ruby Extras Maintainers
+  * Make sure the modsavailabledir is properly created
+  * Fix the DEB_INSTALL_DOCS package name
+  * Update the passengermodule and admintools names for the new upstream
+  * Removed etc from libapache2-mod-passenger.install
+  * Updated to new upstream version
+  * Added librack-ruby Depends
+  * Removed tests/support/valgrind.h, incompatible 4-clause BSD license
+  * Added Build-dep on source-highlight
+
+ -- Micah Anderson <micah@debian.org>  Sat, 25 Jul 2009 11:46:51 -0400
+
+passenger (2.1.2-1) unstable; urgency=low
+
+  * New upstream version.
+  * Added license and copyright information for Boost library at
+    debian/copyright.
+  * Updated source paths.
+  * Updated Standards-Version to 3.8.1 .
+
+ -- Filipe Lautert <filipe@debian.org>  Thu, 26 Mar 2009 19:56:22 -0300
+
+passenger (2.0.3-1) unstable; urgency=low
+
+  [Filipe Lautert]
+
+  * Some corrections to changelog file.
+  * Added myself and ruby-extras group to uploaders field.
+
+  [Leandro Nunes dos Santos]
+
+  * Initial release (Closes: #488753).
+
+ -- Filipe Lautert <filipe@debian.org>  Wed, 15 Oct 2008 23:04:26 -0200
