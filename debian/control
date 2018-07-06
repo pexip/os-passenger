@@ -1,8 +1,9 @@
 Source: passenger
 Section: ruby
 Priority: optional
-Maintainer: Debian Ruby Extras Maintainers <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
-Uploaders: Micah Anderson <micah@debian.org>,
+Maintainer: Pexip AS <packaging@pexip.com>
+XSBC-Pexip-Original-Maintainer: Debian Ruby Extras Maintainers <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
+XSBC-Pexip-Original-Uploaders: Micah Anderson <micah@debian.org>,
            Felix Geyer <fgeyer@debian.org>
 Build-Depends: apache2 (>= 2.4),
                apache2-dev (>= 2.4),
@@ -24,6 +25,7 @@ Homepage: https://www.phusionpassenger.com/
 Vcs-Git: https://anonscm.debian.org/git/pkg-ruby-extras/passenger.git
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-ruby-extras/passenger.git
 XS-Ruby-Versions: all
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ stretch
 
 Package: passenger
 Architecture: any
