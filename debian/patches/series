@@ -2,3 +2,4 @@ fix_install_path.patch
 bin_load_path.patch
 nodejs_bin_name.patch
 CVE-2017-16355.patch
+Fix-privilege-escalation-in-the-Nginx-module.patch

@@ -1,0 +1,52 @@
+From: Camden Narzt <c.narzt@me.com>
+Date: Mon, 14 May 2018 08:34:12 -0600
+Subject: Fix privilege escalation in the Nginx module
+Origin: https://github.com/phusion/passenger/commit/207870f5b7f5cc240587ab0977d6046782ae1d86
+Bug-Debian-Security: https://security-tracker.debian.org/tracker/CVE-2018-12029
+Bug-Debian: https://bugs.debian.org/921767
+
+The vulnerability is exploitable with a non-standard
+passenger_instance_registry_dir, via a race condition where after a file
+was created, it was chowned via the path not the file descriptor.
+
+The chown entered the code in 2010, so Passenger 4 + 5 all affected.
+---
+ src/nginx_module/ngx_http_passenger_module.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+--- a/src/nginx_module/ngx_http_passenger_module.c
++++ b/src/nginx_module/ngx_http_passenger_module.c
+@@ -186,7 +186,7 @@ starting_watchdog_after_fork(void *param
+ }
+ 
+ static ngx_int_t
+-create_file(ngx_cycle_t *cycle, const u_char *filename, const u_char *contents, size_t len) {
++create_file(ngx_cycle_t *cycle, const u_char *filename, const u_char *contents, size_t len, uid_t uid, gid_t gid) {
+     FILE  *f;
+     int    ret;
+     size_t total_written = 0, written;
+@@ -201,6 +201,9 @@ create_file(ngx_cycle_t *cycle, const u_
+             ret = fchmod(fileno(f), S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+         } while (ret == -1 && errno == EINTR);
+         do {
++            ret = fchown(fileno(f), uid, gid);
++        } while (ret == -1 && errno == EINTR);
++        do {
+             written = fwrite(contents + total_written, 1,
+                 len - total_written, f);
+             total_written += written;
+@@ -327,13 +330,10 @@ start_watchdog(ngx_cycle_t *cycle) {
+                         "%s/web_server_control_process.pid",
+                         psg_watchdog_launcher_get_instance_dir(psg_watchdog_launcher, NULL));
+     *last = (u_char) '\0';
+-    if (create_file(cycle, filename, (const u_char *) "", 0) != NGX_OK) {
++    if (create_file(cycle, filename, (const u_char *) "", 0, (uid_t) core_conf->user, (gid_t) -1) != NGX_OK) {
+         result = NGX_ERROR;
+         goto cleanup;
+     }
+-    do {
+-        ret = chown((const char *) filename, (uid_t) core_conf->user, (gid_t) -1);
+-    } while (ret == -1 && errno == EINTR);
+     if (ret == -1) {
+         result = NGX_ERROR;
+         goto cleanup;
