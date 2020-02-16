@@ -1,18 +1,18 @@
-passenger (5.0.30-1+deb9u1pexip1) pexip; urgency=medium
+passenger (5.0.30-1.1) unstable; urgency=medium
 
-  * New upstream release
-
- -- John-Mark Bell <jmb@pexip.com>  Mon, 25 Mar 2019 15:06:38 +0000
-
-passenger (5.0.30-1+deb9u1) stretch-security; urgency=high
-
-  * Non-maintainer upload by the Security Team.
+  * Non-maintainer upload.
   * arbitrary file read via REVISION symlink (CVE-2017-16355)
     (Closes: #884463)
   * Fix privilege escalation in the Nginx module (CVE-2018-12029)
     (Closes: #921767)
 
- -- Salvatore Bonaccorso <carnil@debian.org>  Sun, 17 Mar 2019 19:40:23 +0100
+ -- Salvatore Bonaccorso <carnil@debian.org>  Sat, 16 Mar 2019 08:54:26 +0100
+
+passenger (5.0.30-1+deb9u1pexip1) pexip; urgency=medium
+
+  * New upstream release
+
+ -- John-Mark Bell <jmb@pexip.com>  Mon, 25 Mar 2019 15:06:38 +0000
 
 passenger (5.0.30-1+b1pexip2) pexip; urgency=medium
 
